@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chapter 2: End-to-end Machine Learning Project - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1>Chapter 2: End-to-end Machine Learning Project</h1>
+	<p><h2>Questions</h2>
+<h3>What are the 8 basic steps for a End-to-End Machine Learning Project?</h3>
+<ul>
+<li>Look at the big picture</li>
+<li>Get the data</li>
+<li>Discover and visualize the data to get insights</li>
+<li>Prepare the data for Machine Learning algorithms</li>
+<li>Select a model and train it</li>
+<li>Fine tune the model</li>
+<li>Present the solution</li>
+<li>Launch, monitor and maintain the system</li>
+</ul>
+<h3>What is a pipeline?</h3>
+<ul>
+<li>A sequence of data processing components is called a pipeline.</li>
+<li>Each component in a pipeline is self contained and is interfaced only by the datastore.</li>
+<li>When a component breaks down, the downstream components still continue to work using the last output from the broken component.</li>
+</ul>
+<h3>What is MAE and RMSE?</h3>
+<ul>
+<li>RMSE is Root Mean Square Error
+\begin{equation<em>}
+RMSE(x, h) = \sqrt{\frac{1}{m} \sum_{i=1}^m{(h(x^{(i)}) - y^{(i)})^2}}
+\end{equation</em>}</li>
+<li>MAE is Mean Absolute Error
+\begin{equation<em>}
+MAE(x, h) = \frac{1}{h} \sum_{i=1}^m |h(x^{(i)}) - y^{(i)}|
+\end{equation</em>}
+where,<br />
+\( m \) is the Number of training instances<br />
+\( x^{(i)} \) is the  Feature vector of the \( i^{th} \) training instance<br />
+\( y^{(i)} \) is the Expected output of the \( i^{th} \) training instance<br />
+\( h \) is the Predicted output value for the \(i^{th} \) training example</li>
+</ul>
+<h3>What can you see in the data using a histogram?</h3>
+<ul>
+<li>Histogram describes the number of instances (on y axis) for a given range of values (on x axis).</li>
+<li>In other words, it gives insights about the frequency of instances.</li>
+</ul>
+<h3>Why is using a stratified shuffle split useful?</h3>
+<ul>
+<li>Stratified shuffle split creates a test set that represents the whole dataset statistically.</li>
+<li>If randomized split is used instead of stratified split, the test set is skewed and the final results are biased.</li>
+<li>Example: When a survey company wishes to survey 1000 people, the 1000 people should be a representative of the entire population. For instance, US population consists of 51.3% females and 48.7% males. Therefore, ideally the survey should be carried out with 513 females and 487 males.</li>
+</ul>
+<h3>What does the standard correlation coefficient state?</h3>
+<ul>
+<li>The <em>standard correlation coefficient</em> is also called <em>Pearson's r</em>.</li>
+<li>The correlation coefficient ranges from -1 to 1.</li>
+<li>When it is close to 1, it means that there is strong positive linear correlation between two features.</li>
+<li>When it is close to -1, it means there is strong negative linear correlation.</li>
+<li>When it is close to 0, it means there is no linear correlation.</li>
+</ul>
+<h3>What does the scatter matrix shown here reveal?</h3>
+<p><center><img src=/static/images/mlwr/ch_2_scatter.png width="800"></center>  </p>
+<ul>
+<li>The main diagonal would be full of straight lines each each attribute is plotted against itself. So instead, the pandas library in python plots the histogram of each attribute.</li>
+<li>The most promising attribute to predict the median house value is the median income because there is a strong positive correlation between the median income and the median house value.</li>
+<li>There is a horizontal line at $500,000 indicating that several instances have their prices capped.</li>
+<li>There are also visible horizontal lines at $450,000, $350,000 and $280,000. It would be favorable to remove the instances corresponding to few of these points to prevent the machine learning algorithm from reproducing those data quirks.</li>
+</ul>
+<h3>Why is data cleaning important?</h3>
+<ul>
+<li>Most machine learning algorithms cannot work with missing features/values.</li>
+<li>If a feature consists of missing values, they can be dealt as follows:<ul>
+<li>Get rid of the instances where the values are missing.</li>
+<li>Get rid of the entire column/attribute.</li>
+<li>Set the missing values to some standard values like zero, mean, median, etc.</li>
+</ul>
+</li>
+</ul>
+<h3>What does one-hot encoding mean and when do you use it?</h3>
+<ul>
+<li>One-hot encoding is a technique where each category is assigned a binary attribute.</li>
+<li>For example, in a music genre classifier, the music scale is a categorical attribute with, let's say 4 possible values (Major, Natural minor, Melodic minor and Harmonic minor). When we apply <em>one hot encoding</em>, this single attribute is  converted to 4 different attributes each taking up a binary value.</li>
+<li>If an instance belongs to the category <em>Major</em>, only its attribute will be equal to 1 (hot) and the rest will be equal to 0 (cold).</li>
+<li>The newly created attributes are also called <em>dummy attributes</em>.</li>
+</ul>
+<h3>What is the difference between normalization (min-max-scaling) and standardization?</h3>
+<p><strong>Min-max scaling/Normalization</strong>
+* Values are shifted and rescaled so that they end up ranging from 0 to 1.
+\begin{equation<em>}
+X_{scaled} = \frac{X - X_{min}}{X_{max} - X_{min}}
+\end{equation</em>}</li>
+* Min-max scaling gets affected if there are outliers.</p>
+<p><strong>Standardization</strong>
+* In standardization, the values are subtracted from the mean so that they have a zero mean, and then they are divided by the standard deviation so that they have unit variance.
+\begin{equation<em>}
+X_{scaled} = \frac{X - \bar{X}}{\sigma^2}
+\end{equation</em>}
+* Standard scaling is not bound to any fixed range and it is not affected by outliers as well.</p>
+<h3>What can be causes of an underfitting model?</h3>
+<p>The following are some possible causes for underfitting:
+* The selected features do not provide enough information to make good predictions.
+* The chosen model is not powerful enough to handle complex datasets. 
+* There are too many constraints on the model.</p>
+<h3>How does Cross Validation work?</h3>
+<ul>
+<li>In cross validation, the training set is split in to K-folds (K can be any integer). Each fold is just a randomized subset of the training set.</li>
+<li>A machine learning model is evaluate K times, picking up different subset every time and training on the remaining K-1 subsets.</li>
+<li>The result is a array containing K different evaluation scores.</li>
+</ul>
+<h3>What does Grid Search do?</h3>
+<ul>
+<li>Grid Search is used to experiment with different combinations of hyperparameters and their values in order to obtain the best model.</li>
+<li>The Grid Search function takes a list of hyperparameters and their respective list of values as input.</li>
+<li>It trains all possible combinations of hyperparmeters and the values and uses their cross-validation score to evaluate them.</li>
+<li>As the number of hyperparameters/values increase, the number of runs also increase and thus it is computationally expensive and slow.</li>
+</ul></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</div>
+</body>
+</html>

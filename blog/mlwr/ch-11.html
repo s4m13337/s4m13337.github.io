@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chapter 11: Training Deep Neural Networks - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1>Chapter 11: Training Deep Neural Networks</h1>
+	<p><h2>Questions</h2>
+<h3>List some problems that are typical of deep neural networks.</h3>
+<ul>
+<li><em>Gradient instability</em>: This happens when the gradient grows smaller and smaller (<em>Vanishing gradient</em>) or larger and larger (<em>Exploding gradient</em>) when flowing backwards through the DNN.</li>
+<li>Not enough training data for such large network or it might be too expensive to label them.</li>
+<li>Training may be extremely slow.</li>
+<li>A model with millions of parameters would severly risk over-fitting the training set especially if there are not enough training instances or if they are too noisy.</li>
+</ul>
+<h3>Describe the vanishing gradient problem.</h3>
+<ul>
+<li>The gradients often get smaller as the backpropagation algorithm progresses down to the lower layers.</li>
+<li>As a result, the gradients at the lower layers are negligible and therefore their weights vitually remain unchanged and the training never converges to a good solution.</li>
+<li>This is called the vanishing gradient problem.</li>
+<li>In some cases the opposite happens where the gradient keeps increasing until the weights become large and the algorithm diverges. This is called the exploding gradient problem.</li>
+</ul>
+<h3>Why can the sigmoid function as activation function cause a vanishing gradient?</h3>
+<ul>
+<li>In the sigmoid function, when the inputs become extremely large (negative or positive), the output saturates at 0 or 1, with a derivative extremely close to 0.</li>
+<li>When the backpropagation takes place, due to the extremely small derivative, there is very less gradient to propagate back through the netwok.</li>
+<li>When the backpropagation reaches the lower layers, there is no more gradient left as the gradient completely vanishes.</li>
+</ul>
+<h3>Is it useful to randomly initialize the weights of a neural network? What other methods are there?</h3>
+<ul>
+<li>Random initialization having a normal distribution with mean 0 and variance 1 is problematic because the variance keeps increasing in the higher layers; the variance of the output is much higher than the variance of the input and a typical logistic activation function would saturate it at the output.</li>
+<li>Some improved initialization methods are:<ul>
+<li><em>Glorot initialization</em>: In this initialization, the variance is set as \( \sigma^2 = \frac{1}{fan_{\text{avg}}}\) where \( fan_{avg} = \frac{fan_{\text{in}} + fan_{\text{out}}}{2}\). \( fan_{\text{in}} \) is the number of input neurons and \( fan_{\text{out}} \) is the number of output neurons. The activation functions used in this case are the <em>tanh, logistic, softamx</em>.</li>
+<li><em>He initialization</em>: In this case the variance is set as \( \sigma^2 = \frac{2}{fan_{\text{in}}} \). The activation function used is ReLU and its variants.</li>
+<li><em>LeCun initialization</em>: Here, the variance is set to \( \sigma^2 = \frac{1}{fan_{\text{in}}} \). The activation function used is SeLU.</li>
+</ul>
+</li>
+</ul>
+<h3>Which initialization method is used form Keras by default?</h3>
+<p>By default, Keras uses <strong>Glorot initialization</strong> with a unifom distribution.</p>
+<h3>Describe the problem of dying ReLUs.</h3>
+<ul>
+<li>The ReLU activation function suffers from a problem known as the <em>the dying ReLUs</em>: during training, some neurons effectively <em>die</em>, meaning that they stop outputting anything other than 0.</li>
+<li>A neuron dies when the wheighted sum of its inputs become negative for all the instances in the training set. When this happens, it outputs zero and the Gradient descent does not affect it anymore because the gradient of a ReLU function is 0 when its input is negative.</li>
+</ul>
+<h3>Which activation functions exist to outperform the ReLU activation function?</h3>
+<ul>
+<li>To overcome the problem of <em>dying ReLUs</em>, there are several variants of the <em>ReLU function</em>:<ul>
+<li>Leaky ReLU</li>
+<li>ELU (Exponential Linear Unit)</li>
+<li>SELU (Scaled ELU)</li>
+</ul>
+</li>
+<li>In general, SELU &gt; ELU &gt; Learky ReLU &gt; ReLU &gt; tanh &gt; logistic.</li>
+</ul>
+<h3>How does batch normalization work?</h3>
+<ul>
+<li>Although using proper initialization techiniques and activation function reduces the danger of vanishing/exploding gradient at the beginning of training, it doesn't guarantee they won't come back during the training.</li>
+<li>This can be prevented using the <em>Batch normalization</em> technique.</li>
+<li>This technique consists of adding an operation before or after the activation fucntion of each hidden layer.</li>
+<li>This operation simply zero-centers and normalizes each input, scales and shifts the result using two new parameter vectors per layer: one for scaling \( \gamma \) and another for shifting \( \beta \).</li>
+<li>In order to zero-center and normalize the inputs, the algorithm calculates the mean and standard deviation of the batch. \begin{equation} \mu_B = \frac{1}{m_B} \sum_{i=1}^{m_B} x^{(i)} \end{equation} \begin{equation} \sigma_B^2 = \frac{1}{m_B} \sum_{i=1}^{m_B} (x^{(i)} - \mu_B)^2 \end{equation}</li>
+<li>The input vector is then normalized as described in this equation: \begin{equation} \hat{x}^{(i)} = \frac{x^{(i)} - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}} \end{equation}</li>
+<li>Finally, the normalized inputs are scaled and shifted: \begin{equation} z^{(i)} = \gamma \otimes \hat{x}^{(i)} + \beta \end{equation}</li>
+<li>Apart from the mean and standard deviation of the batch, the mean and standard deviaition of each layer is computed using moving average. This is used when making the final predictions.</li>
+</ul>
+<h3>What are the advantages of batch normalization, what the disadvantages?</h3>
+<ul>
+<li><strong>Advantages</strong><ul>
+<li>If batch normalization is used in the input layer, it removes the need for normalizing the input data.</li>
+<li>Convergence of the neural network is much faster.</li>
+</ul>
+</li>
+<li><strong>Disadvantage</strong><ul>
+<li>It adds some complexity to the model.</li>
+<li>There is a runtime penalty: it makes slower predictions due to extra computation required at each layer.</li>
+</ul>
+</li>
+</ul>
+<h3>How does gradient clipping work?</h3>
+<ul>
+<li>In this technique, the gradient value is clipped during backpropagation so that they never exceed some threshold.</li>
+<li>This technique is helpful in mitigating exploding gradients.</li>
+<li>This is used in Recurrent Neural Networks (RNNs) as batch normalization is tricky with RNNs.</li>
+</ul>
+<h3>In which situations is the use of transfer learning useful? How does transfer learning work?</h3>
+<ul>
+<li>In situations where we are required to train neural networs that are required to perform similar tasks, it is preferable to use <em>transfer learning</em>.</li>
+<li>Suppose you have a network that was trained to classify pictures into 100 different categories like animals, plants, vehicles and everyday objects. Now you want to train an DNN that classifies specific types of vehicles. These tasks are very similar and even partly overlapping. Therefore you should try to reuse parts of the first network.</li>
+<li>In transfer learning, the weights of the lower layers are copied to the new network and kept frozen. The higher layers are then trained and their weights are adjusted to produce the traget output.</li>
+</ul>
+<h3>How can you find a good model when you have little labeled data but lots of unlabeled training data?</h3>
+<ul>
+<li>When you have little labeled data but lots of unlabeled training data, you can use the unlabled training data to perform <em>unsupervised pretraining</em>.</li>
+<li>Unsupervised pretraining is performed using <em>autoencoders</em> and <em>generative adversarial networks (GANs)</em></li>
+<li>Once the pretraining is done, the lower layers of the autoencoders or GANs can be reused. On top of this the output layer for the specific task can be added and it can be trained with the few available labeled data.</li>
+</ul>
+<h3>Which regularization techniques exist to avoid overfitting?</h3>
+<ul>
+<li>\( \ell_1 \) and \( \ell_2 \) Regularization: \( \ell_2 \) regularization may be used to constrain the neural network's weights, and \( \ell_1 \) regularization can be used if you want to have a sparse model (Where many connection weights become 0).</li>
+<li><em>Dropout</em>: This is the most popular regularization technique for DNNs. At every training step, every neuron (including the input neurons but excluding the output neurons), has a probability \( p \) of being temporarilly dropped out, meaning it will be completely ignored during this training step, but it may become active during future steps. \( p \) is called the dropout rate and is usually set to 20-30% in RNNs and 40-50% in CNNs</li>
+</ul>
+<h3>Describe the Max-Norm Regularization technique.</h3>
+<ul>
+<li>For each neuron, it constrains the weights \( w \) of the incoming connections such that \( \left\Vert w \right\Vert_2 \leq r\), where \(r\) is the max-norm hyperparameter and \( \left\Vert . \right\Vert \) is the \( \ell_2 \) norm.</li>
+<li>Reducing \( r \) increases the amount of regularization and helps reduce overfitting.</li>
+<li>Max-norm regularization can also help alleviate the unstable gradients problems if batch normalization is not used.</li>
+</ul></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</div>
+</body>
+</html>

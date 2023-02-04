@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chapter 3: Classification - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1>Chapter 3: Classification</h1>
+	<p><h2>Questions</h2>
+<h3>What is MNIST?</h3>
+<ul>
+<li>MNIST is a dataset of 70000 small images of handwritten digits.</li>
+<li>The numbers are handwritten by highschool students and employees of US Census Bureau.</li>
+<li>Each image is labeled with the digit that it represents.</li>
+<li>The dimension of each image is 28 x 28 pixels and therefore every image has 784 features.</li>
+<li>The first 60,000 images comprise the training set and the last 10,000 images constitute the test set.</li>
+<li>Fun fact: The MNIST dataset is called the <em>hello world</em> of Machine learning.</li>
+</ul>
+<h3>What is an advantage of SGD Classifier?</h3>
+<ul>
+<li>SGD stands for Stochastic Gradient Classifier.</li>
+<li>This classifier is cabable of handling very large datasets efficiently.</li>
+<li>This is because, it deals with the training instances independently, one at a time (which also makes it suitable for online learning).</li>
+<li>The SGD relies on randomness during training (hence the name <em>stochastic</em>).</li>
+</ul>
+<h3>What is a problem with skewed datasets?</h3>
+<ul>
+<li>A skewed dataset is one in which some classes are much more frequent than others.</li>
+<li>Skewed datasets cause problems with the accuracy of Machine learning models.</li>
+</ul>
+<h3>What does the confusion matrix show?</h3>
+<ul>
+<li>Consider two classes A and B. The confusion matrix shows the number of times instances of class A are classified as class B and vice versa.</li>
+<li>Each row represents an actual class and each column represents a predicted class.</li>
+<li>For a binary classifier, the confusion matrix would be a 2x2 matrix. The first column represents the actual negative class and the second column represents the actual positive class. Similarly, the first row represents the predicted negative class and the second row represents the predicted positive class.</li>
+<li>Each element determine the follwoing:<ul>
+<li>(1, 1) denotes True negative</li>
+<li>(1, 2) denotes False positive</li>
+<li>(2, 1) denotes Flase negative</li>
+<li>(2, 2) denotes True positive</li>
+</ul>
+</li>
+</ul>
+<p><center><img src="/static/images/mlwr/ch_3_confusion_matrix.png"></center></p>
+<h3>How would the confusion matrix of a perfect classifier look like?</h3>
+<ul>
+<li>A perfect confusion matrix would have non-zero entries only on the leading diagonal and 0 elsewhere.</li>
+</ul>
+<h3>What does the metric precision state?</h3>
+<ul>
+<li>The accurany of positive prediction is called <em>precision</em>.</li>
+<li>It is the ratio of True positives to the sum of Ture positives and False positives.</li>
+<li>Another interpretation is that it is the ratio of number of true positive predictions to the total number of positive predictions.
+\begin{equation<em>}
+\text{precision} = \frac{TP}{TP + FP}
+\end{equation</em>}</li>
+</ul>
+<h3>What does the metric recall (or sensitivity or true positive rate) state?</h3>
+<ul>
+<li>The Recall is defined as the ratio of True postives to the total number of predictions.
+\begin{equation<em>}
+\text{recall} = \frac{TP}{TP + FN}
+\end{equation</em>}</li>
+</ul>
+<h3>What does a precision of 0.72 and a recall of 0.75 mean?</h3>
+<ul>
+<li>Consider the example of a binary classifier for detecting whether a given image is 5 or not.</li>
+<li>When the classifier claims that an image is 5, it is correct only 72%.</li>
+<li>The recall score of 0.75 tells us that out of all the actual images that represent 5, only 75% are detected.</li>
+</ul>
+<h3>What states the F<sub>1</sub> score and when is the score high?</h3>
+<ul>
+<li>The F<sub>1</sub> score is the harmonic mean of precision and recall.
+\begin{equation<em>}
+F_1 = \frac{TP}{TP + \frac{FN + FP}{2}}
+\end{equation</em>}</li>
+<li>The F<sub>1</sub> score is high when both precision and recall score are high/similar.</li>
+</ul>
+<h3>What does the precission/recall trade-off state?</h3>
+<ul>
+<li>The precision/recall trade*off states that increasing precision reduces recall and vice versa.
+<center><img src="/static/images/mlwr/ch_3_precision_recall_trade_off.png"></center></li>
+<li>In the image shown here, when the threshold is at the center, the precision is 80% since out of the 5 positive predictions, 4 are actually correct. The recall however is 67% because from the entinre dataset containing 6 5's, only 4 are detected.</li>
+<li>Shifting the threshold line to the right implies increasing precision and consequently reducing the recall.</li>
+<li>Shifting the threshold line to the left implies reducing precision and increasing the recall.</li>
+</ul>
+<h3>How can you determine a good decision treshold?</h3>
+<ul>
+<li>First, obtain the decision score of all the instances in the training set.</li>
+<li>Using the decision score, compute the precision and recall for all possible thresholds.</li>
+<li>Plot the precision and recall values as a function of threshold.</li>
+</ul>
+<p><center><img src="/static/images/mlwr/ch_3_precision_recall_curve.png"></center></p>
+<ul>
+<li>From this graph, one can chose the threshold for a given precision and recall.</li>
+</ul>
+<h3>What does the ROC curve show?</h3>
+<ul>
+<li>ROC stands for <em>Receiver Operating Characterisitcs</em>.
+It is a plot of the True Positive Rate (recall) against the False Positive Rate (1 * <em>specificity</em>).
+<center><img src="/static/images/mlwr/ch_3_roc_curve.png"></center></li>
+<li>The figure shows an ROC curve. The dotted line represents a purely random classifier.</li>
+<li>A good classifier stays as far away as possible from the dotted line, towards the top left corner.</li>
+<li>One way to compare classifier is by measuring the /area under the curve/ (AUC). A perfect classifier has AUC = 1 whereas a purely random classifier would have AUC = 0.5</li>
+</ul>
+<h3>When should you use the PR curve over the ROC curve?</h3>
+<ul>
+<li>As a rule of thumb, one should use the PR curve whenever the positive class is rare or when you care more about the flase positives than the false negatives.</li>
+</ul>
+<p><center><img src="/static/images/mlwr/ch_3_pr_curve.png"></center></p>
+<ul>
+<li>From the image of PR curve, it is clear that a classifier could be improved by pushing the curve towards the right top corner.</li>
+</ul></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chapter 10: Introduction to Artificial Neural Networks with Keras - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1>Chapter 10: Introduction to Artificial Neural Networks with Keras</h1>
+	<p><h2>Questions</h2>
+<h3>Describe the architecture of a Perceptron.</h3>
+<ul>
+<li>A perceptron is composd of single layer TLUs (Threshold Logic Units) with each TLU connected to all the inputs.</li>
+<li>A TLU computes the weighted sum of the inputs given to it and applies an activation function to give the final output.</li>
+<li>The inputs to the perceptron are fed through a special passthrough neurons called the <em>input neurons</em>: they output whatever they are fed.</li>
+<li>Additionally a bias neuron is included in the input layer which outputs 1 all the time.</li>
+</ul>
+<h3>How does a Perceptron work?</h3>
+<ul>
+<li>Perceptrons are trained using a variant of <em>Hebb's rule</em> or <em>Hebbian learning</em>. This rule takes into account the error that the network makes during prediction.</li>
+<li>The learning rule reinforces connections that help reduce the error.</li>
+<li>For every output neuron that produces a wrong prediction, it reinforces the connection weights from the inputs that would have contributed to the correct prediction. \begin{equation} w_{i,j}^{(\text{next step})} = w_{i, j} = \eta (y_j - \hat{y}_j) x_i \end{equation} where<ul>
+<li>\( w_{i, j}\) is the connection weight between \(i^{th} \) and \( j^{th} \) output neuron</li>
+<li>\( x_i \) is the \( i^{th}\) input value of the training instance</li>
+<li>\( \hat{y_i} \) is the \( j^th \) output neuron for the current training instance</li>
+<li>\( y_i \) is teh target output of \( j^{th} \) output neuron for current training instance</li>
+<li>\( \eta \) is the learning rate.</li>
+</ul>
+</li>
+</ul>
+<h3>What is a Fully Connected Layer or also called Dense Layer?</h3>
+<p>When all the neurons in a layer are connected to every other neurons in the previous layer (i.e. its input layer), it is called a fully connected layer or a dense layer.</p>
+<h3>What is a Multilayer Perceptron (Feed Forward Network)?</h3>
+<ul>
+<li>A Multilayer Perceptron (MLP) is composed of one (passthrought) <em>input layer</em>, one or more layers of TLUs called the <em>hidden layers</em> and one final layer of TLU called the <em>output layer</em>.</li>
+<li>The layers close to the input layer are called <em>lower layer</em>, and the ones closer to the outputs are called <em>upper layers</em>.</li>
+<li>Every layer except the output layer includes a bias neuron and is fully connected to the next layer.</li>
+<li>Since the signal flows only in one direction (from the inputs to the outputs), this architecture is called a <em>feedforward neural network (FNN)</em>.</li>
+</ul>
+<h3>Explain the backpropagation algorithm.</h3>
+<ul>
+<li>The algorithm handles one mini-batch at a time. (One mini-batch typically consists of 32 instances)</li>
+<li>Each mini-batch is passed to the network's input layer, which sends it to the first input layer. The algorithm then computes the output for that hidden layer and the results are passed forward. This goes on till the output layer is reached. This stage is called the <em>forward pass</em>. It is just like making prediction except that all the outputs of the intermediate layers are preserved.</li>
+<li>Next, the algorithm computes the network's output error using the loss function, by comparing with the target output and it returns the error measure.</li>
+<li>Then it computes how much each output connection contributed to the error analytically by applying the <em>chain rule</em>.</li>
+<li>The algorithm then measures how much of these error contributions came from each connection in the layer below, again using the chain rule. It keeps working backward till it reaches the input laer. This stage is called the <em>backward pass or the back propagation</em>.</li>
+<li>Finally the algorithm performs a gradient descent, updating the weights of all the connections using the error gradient it just computed.</li>
+</ul>
+<h3>Why do we need an activation function with a non-zero derivative?</h3>
+<ul>
+<li>It is essential to have an activation function with non-zero derivative because the Gradient Descent cannot work otherwise.</li>
+<li>The derivative of a step function is 0, which is flat. The Gradient descent algorithm cannot move on a flat surface.</li>
+<li>Functions like the <em>logistic function, hyperbolic tangent function</em> and <em>ReLU function</em> have non-zero derivative and they allow the Gradient Descent to make progress at each step.</li>
+</ul>
+<h3>What is the default activation function commonly used?</h3>
+<ul>
+<li>The default activation function that is commonly used is the <em>Rectified Linear Unit function (ReLU(z))</em>.</li>
+<li>This function is not differentiable at \(z=0\) and this makes the Gradient Descent momentarily bounce around. Also, its derivative is zeor for \(z \lt 0 \).</li>
+<li>It has the main advantage of being very fast to compute, so it has become the default.</li>
+</ul>
+<h3>How many output neurons are needed for regression tasks?</h3>
+<ul>
+<li>In case of regression tasks, you need one output neuron per output dimension.</li>
+<li>For example, if you want to predict a single output, say the price of a house given many of its featues, you require just one output neuron.</li>
+<li>If you want to predict the center of an object in an image, you would need the 2D coordinates and therefore you will require two output neurons.</li>
+</ul>
+<h3>What type of activation functions should you use for the last layer in a regression task? Describe the different situations and the corresponding activation functions.</h3>
+<ul>
+<li>In general, it is not necessary to use any activation function for the output layer in case of regression task, so they are free to output any range of values.</li>
+<li>However, if you want to guarantee that the output will always be positive, then you could use the ReLU activation function in the output layer. Alternatively, the <em>softplus</em> activation function maybe used, which is a smooth variant of the ReLU.</li>
+<li>If you want to guarantee that the output will fall within a given range of values, you can use the logistic function or the hyperbolic tangent function and scaled the output to the appropriate range. (0 ti 1 for logistic function and -1 to 1 for hyperbolic tangent function)</li>
+</ul>
+<h3>What type of activation functions should you use for the last layer in a classification task? Describe the different situations and the corresponding activation functions.</h3>
+<ul>
+<li>For binary classification problem, you just need a single output neuron using the logistic activation function: the output will be a number between 0 and 1, which can be interpreted as the estimated probability of the probability class. Consequently, the estimated probability of the negative class will be equal to one minus that number.</li>
+<li>In case of multilabel binary classification, there would be one output neuron per label, each using the logistic function. In this case the probabiliy from each neuron would not add up to one.</li>
+<li>If each instance belongs only to a single class out of three or more possible classes, the you would need one output neuron per class and the softmax activation function must be used. This will ensure that the estimated probabilities are between 0 and 1 and they add up to 1.</li>
+</ul>
+<h3>How is the loss function defined for classification?</h3>
+<ul>
+<li>For classification task, the most suitable loss function is the Cross-entropy loss.</li>
+<li>It is also called the log loss function.</li>
+<li>It is applicable for binary as well as multiclass classification.</li>
+</ul>
+<h3>What are the recommended steps for tuning the hyperparameters?</h3>
+<ul>
+<li>In neural networks, there are many hyperparameters that can be tweaked (number of layers, neurons per layer, activation function in each layer, etc.)</li>
+<li>Due to the enormous number of available hyperparameters, it is preferable to use randomized search rather than grid search.</li>
+</ul>
+<h3>What can you do to avoid having to adjust a model multiple times?</h3>
+<ul>
+<li>The randomized search can also take very long time if the dataset is large. This can be partially alleviated by assisting the search process manually:<ul>
+<li>First run a quick random search using wide range of hyperparameter values.</li>
+<li>Then run another search using smaller ranges of vlaues centered on the best ones found during the first run, and so on.</li>
+<li>This will zoom in on a good set of hyperparameters.</li>
+</ul>
+</li>
+</ul>
+<h3>How to avoid optimizing the number of epochs?</h3>
+<ul>
+<li>Using <em>Early stopping</em>, it is possible to avoid optimizing the number of epochs.</li>
+<li>The number of epochs can be set a large value since the training will stop automatically when there is no more progress.</li>
+</ul>
+<h3>Which ways exist to fine-tune the hyperparameters of a neural network automatically?</h3>
+<ul>
+<li>There are many libraries that explore the hyperparametes space efficiently.</li>
+<li>Their core idea is simple: <em>When a region turns out to be good, it should be explored more</em>.</li>
+<li>These techniques automatically take care of the <strong>zooming</strong> process.</li>
+<li>These are some Python libraries available for optimizing hyperparameters:<ul>
+<li>Hyperopt</li>
+<li>Hyperas, kopt or Talos</li>
+<li>Keras Tuner</li>
+<li>Scikit-Optimize (<code>skopt</code>)</li>
+<li>Spearmint</li>
+<li>Hyperband</li>
+<li>Sklearn-Deap</li>
+</ul>
+</li>
+</ul>
+<h3>Theoretically, a neural network can learn complex tasks with only one layer. Why does it still make sense to use multiple hidden layers instead?</h3>
+<ul>
+<li>An MLP with just one hidden layer can theoretically model even the most complex functions, provided it has sufficient neurons.</li>
+<li>However, for complex problems, deep networks have much higher parameter efficiency than shallow ones: they can model complex functions using exponentially fewer neurons than shallow nets, allowing them to reach better performance with same amount of training data.</li>
+<li>Example: If we are asked to draw a forest but we are forbidden to copy and paste anything, it would take an enourmous time to draw each tree indiviudally, branch by branch, leaf by leaf.</li>
+</ul>
+<h3>How can the layers be interpreted? What do the lower layers learn, what do the upper layers learn?</h3>
+<ul>
+<li>The lower hidden layers model low-level structures (e.g. line segments of various shapes and orientations).</li>
+<li>The intermediate hidden layers combine these low-level structures to model intermediate-level structures (e.g. shapes like squares, circles, etc.)</li>
+<li>The highest level hidden layers combine the intermideate-level structures to model high-level structures (e.g faces, objects, etc.)</li>
+</ul>
+<h3>What is transfer learning?</h3>
+<ul>
+<li>Example: Assume that you have trained a neural network that can recognize faces in picture. Now you want to train a new network that can recognize the hairstyles.</li>
+<li>Instead of training the new network from scratch, you can kickstart it by reusing the lower layers from the first network i.e. instead of assigning random weights and biases to the first few layers of the new network, you can assign them the values of weights and biases of the lower layers of the first network.</li>
+<li>This way, the network will not have to learn from scratch all the low-level structure.</li>
+<li>This is called <em>transfer learning</em>.</li>
+</ul>
+<h3>Why is it useful to use transfer learning?</h3>
+<ul>
+<li>With transfer learning, we don't have train new networks entirely from scractch.</li>
+<li>Parts of pretrained networks that perform similar tasks can be reused to train new netowrks.</li>
+<li>This ill make the training much faster and require much less data as well.</li>
+</ul>
+<h3>What is a good distribution of the number of neurons across the different hidden layers?</h3>
+<ul>
+<li>A typical distribution of neurons across the hidden layers is to form a pyramid like structure. (e.g. in the MNIST dataset, the first hidden layer may have 300 neurons, the second may have 200 neurons and the third layer may have 100 neurons.)</li>
+<li>However, this practice has been abandoned because it has been evident that even using a constant number of neurons across all the hidden layers performs just as well in most cases.</li>
+<li>In general, it can sometimes help to make the first hidden layer bigger than the others.</li>
+</ul>
+<h3>What is the recommended alternative to gradually adjusting the number of neurons to avoid overfitting?</h3>
+<ul>
+<li>Instead of gradually adjusting the number of neurons to avoid overfitting, it's often simpler and more efficient to pick a model with more layers and neurons than you actually need, then use early stopping and other regularization techniques to prevent it from overfitting.</li>
+<li>This is also known as the <em>stretch pantts</em> approach.</li>
+</ul></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</div>
+</body>
+</html>
