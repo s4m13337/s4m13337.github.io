@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>July❤️5❤️2023</title>
+	<style>
+  		@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+  		body{
+			font-family: 'Sofia', cursive;
+			background: pink url("heart.png") repeat;
+			background-size: 32px;
+			color: #fe2c54;
+		}
+
+		.names{
+			text-align: center;
+		}
+
+		#mrs{
+			font-size: 24pt;
+		}
+
+		#heart{
+			font-size: 32pt;
+		}
+
+		#mr{
+			font-size: 20pt;
+		}
+
+		.timer{
+			font-size: 32pt;
+			font-weight: 600;
+			text-align: center;
+		}
+
+		.trail{
+			text-align: center;
+			font-size: 18pt;
+		}
+	</style>
+</head>
+<body>
+	<div class="names">
+		<div id="mrs">Alankrita Mishra</div>
+		<div id="heart">♥️</div>
+		<div id="mr">Soumya Sambeet Mohapatra</div>
+	</div>
+	
+	<div class="timer"></div>
+	<div class="trail">to go for engagement . . .</div>
+
+	<center>
+		<img src="peach-goma.png" width=150>
+	</center>
+
+	<script type="text/javascript">
+		// Engagement date :)
+		let countDownDate = new Date("Jul 5, 2023").getTime();
+		
+		setInterval(function() {
+
+			// Current time
+			let now = new Date().getTime();
+
+			// Distance between current time and target time
+			distance = countDownDate - now
+
+			// Calculate days, hours, minutes and seconds
+			let days = Math.floor(distance / (24 * 60 * 60 * 1000))
+			let hours = Math.floor((distance % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
+			let minutes = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000))
+			let seconds = Math.floor((distance % (60 * 1000)) / 1000)
+			console.log(days, hours, minutes, seconds)
+
+			// Display the result in the timer div
+			document.querySelector(".timer").innerHTML = days + " days<br>" + hours + " hours<br>" + minutes + " minutes<br>" + seconds + " seconds<br>";
+		}, 1000)
+
+	</script>
+</body>
+</html>
