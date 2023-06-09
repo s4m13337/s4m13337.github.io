@@ -4,43 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>July❤️5❤️2023</title>
-	<style>
-  		@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
-
-  		body{
-			font-family: 'Sofia', cursive;
-			background: pink url("heart.png") repeat;
-			background-size: 32px;
-			color: #fe2c54;
-		}
-
-		.names{
-			text-align: center;
-		}
-
-		#mrs{
-			font-size: 24pt;
-		}
-
-		#heart{
-			font-size: 32pt;
-		}
-
-		#mr{
-			font-size: 20pt;
-		}
-
-		.timer{
-			font-size: 32pt;
-			font-weight: 600;
-			text-align: center;
-		}
-
-		.trail{
-			text-align: center;
-			font-size: 18pt;
-		}
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="names">
@@ -53,9 +17,11 @@
 	<div class="trail">to go for engagement . . .</div>
 
 	<center>
-		<img src="peach-goma.png" width=150>
+		<img src="peach-goma.png" width=150 onclick="viewImages()">
 	</center>
 
+	<img class="image-container" src="" style="width:100%">
+	
 	<script type="text/javascript">
 		// Engagement date :)
 		let countDownDate = new Date("Jul 5, 2023").getTime();
@@ -73,11 +39,28 @@
 			let hours = Math.floor((distance % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
 			let minutes = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000))
 			let seconds = Math.floor((distance % (60 * 1000)) / 1000)
-			console.log(days, hours, minutes, seconds)
 
 			// Display the result in the timer div
 			document.querySelector(".timer").innerHTML = days + " days<br>" + hours + " hours<br>" + minutes + " minutes<br>" + seconds + " seconds<br>";
 		}, 1000)
+
+		// Mini image gallery
+		let imagesPath = [
+            "images/image-1.jpg", 
+            "images/image-2.jpg",
+            "images/image-3.jpg",
+            "images/image-4.jpg",
+            "images/image-5.jpg",
+            "images/image-6.jpg"
+        ]
+		imageContainer = document.querySelector(".image-container")
+		function viewImages(){
+			let i = 0
+			setInterval(function(){
+				imageContainer.src = imagesPath[i]
+				i = i>=5 ? 0 : ++i
+			}, 3000)
+		} 
 
 	</script>
 </body>
