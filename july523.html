@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>July❤️5❤️2023</title>
+	<link rel="stylesheet" href="/static/july523.css">
+</head>
+<body>
+	<div class="names">
+		<div id="mrs">Alankrita Mishra</div>
+		<div id="heart">♥️</div>
+		<div id="mr">Soumya Sambeet Mohapatra</div>
+	</div>
+	
+	<div class="timer"></div>
+	<div class="trail">to go for engagement . . .</div>
+
+	<center>
+		<img src="/static/images/july523/peach-goma.png" width=150 onclick="viewImages()">
+	</center>
+
+	<img class="image-container" src="" style="width:100%">
+	
+	<script type="text/javascript">
+		// Engagement date :)
+		let countDownDate = new Date("Jul 5, 2023").getTime();
+		
+		setInterval(function() {
+
+			// Current time
+			let now = new Date().getTime();
+
+			// Distance between current time and target time
+			distance = countDownDate - now
+
+			// Calculate days, hours, minutes and seconds
+			let days = Math.floor(distance / (24 * 60 * 60 * 1000))
+			let hours = Math.floor((distance % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
+			let minutes = Math.floor((distance % (60 * 60 * 1000)) / (60 * 1000))
+			let seconds = Math.floor((distance % (60 * 1000)) / 1000)
+
+			// Display the result in the timer div
+			document.querySelector(".timer").innerHTML = days + " days<br>" + hours + " hours<br>" + minutes + " minutes<br>" + seconds + " seconds<br>";
+		}, 1000)
+
+		// Mini image gallery
+		let imagesPath = [
+            "/static/images/july523/image-1.jpg", 
+            "/static/images/july523/image-2.jpg",
+            "/static/images/july523/image-3.jpg",
+            "/static/images/july523/image-4.jpg",
+            "/static/images/july523/image-5.jpg",
+            "/static/images/july523/image-6.jpg"
+        ]
+		imageContainer = document.querySelector(".image-container")
+		function viewImages(){
+			let i = 0
+			setInterval(function(){
+				imageContainer.src = imagesPath[i]
+				i = i>=5 ? 0 : ++i
+			}, 3000)
+		} 
+
+	</script>
+</body>
+</html>

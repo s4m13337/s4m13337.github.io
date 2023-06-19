@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+body{
+    font-family: 'Sofia', cursive;
+    background: pink url("images/july523/heart.png") repeat;
+    background-size: 32px;
+    color: #fe2c54;
+}
+
+.names{
+    text-align: center;
+}
+
+#mrs{
+    font-size: 24pt;
+}
+
+#heart{
+    font-size: 32pt;
+}
+
+#mr{
+    font-size: 20pt;
+}
+
+.timer{
+    font-size: 32pt;
+    font-weight: 600;
+    text-align: center;
+}
+
+.trail{
+    text-align: center;
+    font-size: 18pt;
+}
+
+.image-container{
+    background: #fff;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
