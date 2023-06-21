@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Guess the number - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1 style="text-align: center;">Guess the number</h1>
+	<h5 style="text-align: center;"><em>[2020-04-12]</em></h5>
+	<p><p>This is a classic terminal based game where the computer thinks of a number and the user has to guess it in as minimum number of tries as possible. Although this game is very simple, it teaches us some absolute fundamentals of programming. Let us see how we can develop this from the pseudocode to the finished product.</p>
+<h2>Algorithm</h2>
+<ul>
+<li>The computer picks a number between 1 and 100 and stores it in memory</li>
+<li>The player guesses the number</li>
+<li>If the guess is correct, show a congratulating message otherwise guess again</li>
+</ul>
+<p>Well that seems very plain and simple. Let's add in some more details like showing hints and number of attempts made.</p>
+<ul>
+<li>While the player is guessing</li>
+<li>If the guessed number is lower than the actual number, tell to guess a larger number</li>
+<li>If the guessed number is greater than the actual number, tell to guess a smaller number</li>
+<li>For each guess, increment the tries by 1</li>
+<li>When guess is correct, display the congratulating message along with the number of tries</li>
+</ul>
+<p>There we have it. Now we just need to code this into a python file.</p>
+<h2>Code</h2>
+<p>Never forget the Shebang!</p>
+<p><code>#!/usr/bin/env python</code></p>
+<p>This prgram is going to be guessing numbers between 1 to 100. Therefore we need to import the random module.</p>
+<p><code>import random</code></p>
+<p>Let's initialize some variables.</p>
+<p><code>python
+number = random.randint(1, 100)
+tries = 1</code></p>
+<p>Now it's time to hard-code some introductory messages.</p>
+<p><code>python
+print("Welcome to Guess the Number")
+print("===========================")
+print('''
+    I've thought of a number between 1 to 100.
+    Try to guess it in as few tries as possible.'''
+)</code></p>
+<p>And now, here is the core of the program.</p>
+<p><code>python
+guess = int(input("Your guess:\t"))
+while(guess != number):
+if(guess &lt; number):
+guess = int(input("Try guessing a higher number:\t"))
+else:
+guess = int(input("Try guessing a lower number:\t"))
+tries += 1</code></p>
+<p>And finally, when everything is done, we wrap up.</p>
+<p><code>python
+print('''
+    Congratulations! You guessed the number in {} tries.
+    The number is {}'''.format(tries, number)
+)</code></p>
+<p>The complete code can be found on my Github page <a href="https://github.com/s4m13337/guess-the-number">here</a>.</p></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>X Sin(x) = X-Mas Tree - s4m13337</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+  	<div class="container">
+  		<h1 class="header">s4m13337's website</h1>
+
+      <!-- Navigation -->
+      
+      
+      <nav>
+        <ul>
+        
+          <li><a href="/index.html">🏠 Home</a></li>
+        
+          <li><a href="/about.html">ℹ️ About</a></li>
+        
+          <li><a href="/blog/index.html">📝 Blog</a></li>
+        
+          <li><a href="/contact.html">✉️ Contact</a></li>
+        
+        </ul>
+      </nav>
+
+      <!-- Content area -->
+      <hr>
+      <div class="content">
+	<h1 style="text-align: center;">X Sin(x) = X-Mas Tree</h1>
+	<h5 style="text-align: center;"><em>[2019-12-25]</em></h5>
+	<p><p>In this post, I try to create an animation of a christmas tree using Wolfram Language. This idea is originally inspired from the Wolfram community post <a href="https://community.wolfram.com/groups/-/m/t/175891">here</a>.</p>
+<p>To begin with, we draw a line...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-1.png"></center></p>
+<p>And we draw a sine wave...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-2.png"></center></p>
+<p>We then multiply the two curves...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-3.png"></center></p>
+<p>We have one half of the tree. Let's flip this to get the other half...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-4.png"></center></p>
+<p>Now lets plot them together ...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-5.png"></center></p>
+<p>Now, let's hide the axes...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-6.png"></center></p>
+<p>And make it upright by rotating 90 degrees clockwise ...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-7.png"></center></p>
+<p>Let's add some holiday themed colors...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-8.png"></center></p>
+<p>And let's fill up the background...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-9.png"></center></p>
+<p>Let's add a bit more styling...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-10.png"></center></p>
+<p>Adding some snowflakes...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-11.png"></center></p>
+<p>Finally, we animate everything...</p>
+<p><center><img src="/static/images/xmas-tree/xmas-12.gif"></center></p>
+<p>Here is the final code that generates the above animation:</p>
+<p><code>java
+Animate[
+    Overlay[{
+        Rotate[
+            Dynamic@ListPlot[
+                Table[{RandomReal[]*10, RandomReal[]*10}, {i, 1, 20},PlotMarkers -&gt; Style["*", 18],
+                Background -&gt; Black,
+                Axes -&gt; False,
+                PlotStyle -&gt; White
+            ], -90 \[Degree]
+        ],
+        Rotate[
+            Show[
+                Plot[x Sin[x + a], {x, 0, 30},
+                    PlotStyle -&gt; {Red, Thick, Dashed}
+                ],
+                Plot[-x Sin[x + a], {x, 0, 30},
+                    PlotStyle -&gt; {Darker@Green,
+                        Thick, Dashed}
+                    ],
+                Axes -&gt; False,
+                Background -&gt; Transparent
+            ], -90 \[Degree]
+        ]
+    }], {a, 1, 0.01}
+]</code></p>
+<p><strong>Merry Christmas :)</strong></p>
+<p>The notebook containing the code can be found on my Github page <a href="https://github.com/s4m13337/xmas-tree-2019">here</a>.</p></p>
+</div>
+      <hr>
+
+     <!-- Footer -->
+     
+
+<footer>
+  <center>&copy; s4m13337 All Rights Reserved</center>
+</footer>
+
+</div>
+</body>
+</html>
