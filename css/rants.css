@@ -1,0 +1,29 @@
+.outline-3{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: lightgray;
+    margin: 20px;
+}
+
+.outline-3 h3 {
+    font-weight: normal;
+    font-size: 12pt;
+    margin: 0;
+    text-indent: 40px;
+    line-height: 1.5;
+    padding: 10px;
+}
+
+.outline-3 p{
+    text-indent: 0;
+    background-color: lightgray;
+    border-radius: 0 0 10px 10px;
+    font-size: 8pt;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.5;
+    padding: 5px;
+}
+
+
