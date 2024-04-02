@@ -9,17 +9,19 @@
 <body>
     Hello, this app is built with JS for iPhone 4s <br>
     <div>
-    <button id="btn" style="height:100px;width:200px" onTouchStart="showText()" type="button">Click me!</button>
+    <button id="btn" style="height:100px;width:200px" type="button">Click me!</button>
     </div>
     <p id="content"></p>
     <script>
         
         let content=document.getElementById("#content");
-        let button=document.querySelector("#btn");
+        let btn=document.querySelector("#btn");
 
         function showText(){
             content.innerHTML="It works!"
         }
+
+        btn.addEventListener('touchstart', showText())
         
     </script>
 </body>
