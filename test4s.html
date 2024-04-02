@@ -9,16 +9,17 @@
 <body>
     Hello, this app is built with JS for iPhone 4s <br>
     <div>
-    <button id="btn" onclick="void(0)" type="button">Click me!</button>
+    <button id="btn" onclick="showText()" type="button">Click me!</button>
     </div>
     <p id="content"></p>
     <script>
+        
         let content=document.querySelector("#content");
-        let button=document.querySelector("#btn")
-        function display(){
+        
+        function showText(){
             content.innerHTML="It works!"
         }
-        button.addEventListener("click", display)
+        
     </script>
 </body>
 </html>
