@@ -14,14 +14,14 @@
     <p id="content"></p>
     <script>
         
-        let content=document.getElementById("#content");
+        let content=document.getElementById("content");
         let btn=document.querySelector("#btn");
 
         function showText(){
             content.innerHTML="It works!"
         }
 
-        btn.addEventListener("click", showText())
+        btn.addEventListener("touchstart", showText())
         
     </script>
 </body>
