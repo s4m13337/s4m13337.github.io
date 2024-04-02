@@ -8,7 +8,7 @@
 </head>
 <body>
     Hello, this app is built with JS for iPhone 4s <br>
-    <button id="btn" onclick="javascript:display()">Click me!</button>
+    <button id="btn">Click me!</button>
     <p id="content"></p>
     <script>
         let content=document.querySelector("#content");
@@ -16,7 +16,7 @@
         function display(){
             content.innerHTML="It works!"
         }
-        button.addEventListener("click", display)
+        button.addEventListener("click", display())
     </script>
 </body>
 </html>
